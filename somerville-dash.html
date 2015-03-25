@@ -1,0 +1,98 @@
+<head>
+  <title>City Dash</title>
+
+  <link rel="stylesheet" href="css/styles.css" media="screen" title="default" charset="utf-8">
+</head>
+
+<body>
+  <div id="frame">
+    <div id="options">
+
+    </div>
+    <div id="dashboard">
+      {{#each feedlist}}
+        {{> feed}}
+      {{/each}}
+    </div>
+  </div>
+</body>
+
+<template name="feed">
+  <div class="feed-box {{ #if isCollapsed }}collapsed{{ /if }}">
+    <div class="dashboard">
+      <div class="title-bar">
+        <div class="title">
+          {{ title }}
+        </div>
+        <div class="controls">
+          <a href="#" class="collapse" title="Collapse" aria-label="Collapse Feed">&mdash;</a>
+          <a href="#" class="expand" title="Show" aria-label="Show Feed">+</a>
+          <a href="#" class="close" aria-label="close">&times;</a>
+        </div>
+      </div>
+      {{ #unless isCollapsed }}
+      <div class="tabs">
+        <div class="tab-panel">
+          <a href="#" class="tab {{ #if openIsSelected }}selected{{/if}}" data-tabname="open">
+            Open Tickets
+            {{#if hasOpenTickets}}
+              ({{ open.length }})
+            {{/if}}
+          </a>
+
+          <a href="#" class="tab {{ #if closedIsSelected }}selected{{/if}}" data-tabname="closed">
+            Closed Tickets
+            {{#if hasClosedTickets }}
+              ({{ closed.length }})
+            {{/if}}
+          </a>
+        </div>
+
+        <div class="tab-content">
+          {{ #each shownTickets }}
+            {{ >ticket }}
+          {{ else }}
+            <em class="empty">No tickets</em>
+          {{ /each }}
+        </div>
+      </div>
+      {{ /unless }}
+    </div>
+  </div>
+</template>
+
+<template name="ticket">
+  <div class="ticket {{ #unless viewed }}new{{/unless}}">
+    <span class="ticket-stamp">
+      updated {{ latestUpdate }}
+    </span>
+    <a href="#" class="ticket-name" data-ticket-id="{{ id }}">
+      {{ name }}
+    </a>
+
+    {{ #if isExpanded }}
+    <div class="ticket-details">
+      {{ #if requester }}
+      <div class="requester-info">
+        Requested by <span class="requester">{{ requester.fullname }}</span>
+        at <span class="request-date date">{{ requestDate }}</span>.
+      </div>
+      {{ /if }}
+
+      <p>
+        {{ details }}
+      </p>
+
+      <ul>
+        {{ #each updates }}
+          {{ >ticket_update }}
+        {{ /each }}
+      </ul>
+    </div>
+    {{ /if }}
+  </div>
+</template>
+
+<template name="ticket_update">
+  <li>{{ name }}</li>
+</template>
