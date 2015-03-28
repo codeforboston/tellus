@@ -7,6 +7,13 @@ var StatusCodes = {
     COMPLETE: 3
 };
 
+var StatusNames = {
+    0: "pending",
+    1: "begun",
+    2: "stopped",
+    3: "complete"
+};
+
 var Shared = {
     formatStamp: function(stamp) {
         return moment(stamp).format("h:mma \on ddd MM/DD/YYYY");
@@ -72,6 +79,11 @@ if (Meteor.isClient) {
                                                from: StatusCodes.PENDING,
                                                to: StatusCodes.BEGUN}}
                                 ]
+                            },
+                            {
+                                name: "Work Complete",
+                                status_code: StatusCodes.PENDING,
+                                tag: "complete"
                             }
                         ],
                         read: false,
@@ -90,8 +102,16 @@ if (Meteor.isClient) {
                         updates: [
                             {
                                 name: "Issue Acknowledged",
-                                stamp: 1422032025033
-                            }
+                                stamp: 1422032025033,
+                                status_code: StatusCodes.COMPLETE
+                            },
+                            {
+                                name: "Work Order Issued",
+                                status_code: StatusCodes.BEGUN,
+                            },
+                            {
+                                name: "Job Complete",
+                                notes: "Slightly deceptive description. Pothole was the size of a dik-dik."}
                         ]
                     }
                 ],
@@ -108,6 +128,9 @@ if (Meteor.isClient) {
                     {
                         name: "Retake Placement Test",
                         details: "My horse (Seabiscuit Jones) would like to retake the placement test for 4th grade. He was suffering from a bout of foot and mouth when the previous test was administered, and we believe his performance suffered as a result. We also believe that special consideration should be given to the fact that he can run a 3-minute mile.",
+                        stages: [
+
+                        ],
                         updates: [
                             {
                                 name: "Issue Received",
@@ -115,7 +138,9 @@ if (Meteor.isClient) {
                             },
                             {
                                 name: "Need More Information",
-                                details: "Please submit a vet's note confirming that Seabiscuit Jones was ill.",
+                                notes: "Please submit a vet's note confirming that Seabiscuit Jones was ill.",
+                                // A link to a website where the user
+                                // can resolve the issue.
                                 resolution_link: "http://sis.somerville.gov/ticketId=13123",
                                 needs_action: true,
                                 action_taken: 131232,
@@ -128,7 +153,10 @@ if (Meteor.isClient) {
                             {
                                 name: "Issue Resolved",
                                 details: "We do not admit horses.",
-                                stamp: 1424878506737
+                                stamp: 1424878506737,
+                                attachments: [
+                                    // List of associated documents
+                                ]
                             }
                         ]
                     }
@@ -223,6 +251,13 @@ if (Meteor.isClient) {
     Template.ticket.events({
         "click a.ticket-name": function(event, template) {
             template.state.set("expanded", !template.state.get("expanded"));
+        }
+    });
+
+
+    Template.pipeline_sm.helpers({
+        status_name: function() {
+            return StatusNames[this.status_code];
         }
     });
 }

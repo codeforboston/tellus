@@ -52,7 +52,9 @@
           {{ #each shownTickets }}
             {{ >ticket }}
           {{ else }}
-            <em class="empty">No tickets</em>
+          <div class="empty">
+            <em>No tickets</em>
+          </div>
           {{ /each }}
         </div>
       </div>
@@ -60,6 +62,43 @@
     </div>
   </div>
 </template>
+
+<template name="minimap">
+  <div class="minimap">
+    Imagine a map here.
+    Later versions could have a map navigator.
+  </div>
+</template>
+
+
+<template name="pipeline_sm">
+  <div class="pipeline-sm">
+    {{ #each updates }}
+    <div class="pipeline-stage {{ status_name }}">
+      <!-- Popup information -->
+      <div class="pipeline-popup">
+        <h4>{{ name }}</h4>
+
+        {{ #if notes }}
+        <p>
+          {{ notes }}
+        </p>
+        {{ /if }}
+
+        {{ #if resolution_link }}
+        <a href="{{resolution_link}}">{{resolution_link}}</a>
+        {{ /if }}
+
+        {{ #if attachments }}
+
+        {{ /if }}
+      </div>
+    </div>
+    {{ /each }}
+  </div>
+</template>
+
+
 
 <template name="ticket">
   <div class="ticket {{ #unless viewed }}new{{/unless}}">
@@ -70,6 +109,8 @@
       {{ name }}
     </a>
 
+    {{ >pipeline_sm }}
+
     {{ #if isExpanded }}
     <div class="ticket-details">
       {{ #if requester }}
@@ -77,6 +118,12 @@
         Requested by <span class="requester">{{ requester.fullname }}</span>
         at <span class="request-date date">{{ requestDate }}</span>.
       </div>
+      {{ /if }}
+
+      {{ #if location }}
+      {{ #with location }}
+      {{ >minimap }}
+      {{ /with}}
       {{ /if }}
 
       <p>
