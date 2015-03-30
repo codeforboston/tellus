@@ -29,6 +29,7 @@ minimongo@1.0.7
 mobile-status-bar@1.0.3
 momentjs:moment@2.9.0
 mongo@1.1.0
+mrt:leaflet@0.3.8
 observe-sequence@1.0.5
 ordered-dict@1.0.3
 random@1.0.3

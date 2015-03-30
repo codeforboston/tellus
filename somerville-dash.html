@@ -64,9 +64,17 @@
 </template>
 
 <template name="minimap">
-  <div class="minimap">
-    Imagine a map here.
-    Later versions could have a map navigator.
+  <div class="minimap_holder">
+    <div aria-label="map" class="minimap">
+      Imagine a map here.
+    </div>
+    <div class="desc">
+      {{ #if location.descriptive }}
+      {{ location.descriptive }}
+      {{ else }}
+      {{ location.name }}
+      {{ /if }}
+    </div>
   </div>
 </template>
 
@@ -77,6 +85,7 @@
     <div class="pipeline-stage {{ status_name }}">
       <!-- Popup information -->
       <div class="pipeline-popup">
+        <div class="pipeline-icon {{ status_name }}"></div>
         <h4>{{ name }}</h4>
 
         {{ #if notes }}
@@ -121,9 +130,7 @@
       {{ /if }}
 
       {{ #if location }}
-      {{ #with location }}
       {{ >minimap }}
-      {{ /with}}
       {{ /if }}
 
       <p>

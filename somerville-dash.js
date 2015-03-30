@@ -14,6 +14,11 @@ var StatusNames = {
     3: "complete"
 };
 
+var SearchBox = [42.41306487420867, -71.15278244018555,
+                 42.3609539828782, -71.05768203735352];
+var CityCenter = [42.38712577738338, -71.09819412231445];
+
+
 var Shared = {
     formatStamp: function(stamp) {
         return moment(stamp).format("h:mma \on ddd MM/DD/YYYY");
@@ -258,6 +263,54 @@ if (Meteor.isClient) {
     Template.pipeline_sm.helpers({
         status_name: function() {
             return StatusNames[this.status_code];
+        }
+    });
+
+    Template.minimap.onRendered(function() {
+        var mapElt = this.find(".minimap");
+
+        if (!mapElt) return;
+
+        var map = L.map(mapElt, {center: CityCenter,
+                                 zoom: 17}),
+            data = this.data,
+            location = this.data.location;
+
+        L.tileLayer("http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png",
+                    {
+                         subdomains: ["otile1","otile2","otile3","otile4"]
+                     }).addTo(map);
+
+        var updateWithLocation = (function(loc) {
+            map.setView(loc, {animate: true});
+            var marker = L.circleMarker(loc, {radius:4,
+                                              stroke: "red",
+                                              fillColor: "rgba(255, 0, 0, 0.5)"});
+            map.addLayer(marker);
+        });
+
+        if (location && location.lat && location.lng) {
+            updateWithLocation(location);
+        } else {
+            $.ajax({
+                url: "http://open.mapquestapi.com/nominatim/v1/search.php",
+                type: "get",
+                data: {
+                    format: "json",
+                    q: location.name,
+                    boundingBox: SearchBox.join(",")
+                },
+                viewbox: [].join(","),
+                success: function(results) {
+                    if (results.length > 0) {
+                        place = results[0];
+                        var loc = {lat: parseFloat(place.lat),
+                                   lng: parseFloat(place.lon)};
+                        data.location = loc;
+                        //updateWithLocation(loc);
+                    }
+                }
+            });
         }
     });
 }

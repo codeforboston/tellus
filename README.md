@@ -1,5 +1,10 @@
 # t311.us
 
+## About
+
+t3ll.us is a proof of concept. It is intended as a functional prototype
+for tracking ticketed services.
+
 ## Requirements
 
 tellus requires [Meteor](https://www.meteor.com).

@@ -173,20 +173,28 @@ div.ticket:nth-child(odd) {
     background-color: #bbb;
 }
 
-.pipeline-stage.complete {
+.pipeline-stage.complete, .pipeline-icon.complete {
     background-color: green;
 }
 
-.pipeline-stage.begun {
+.pipeline-stage.begun, .pipeline-icon.begun {
     background-color: yellow;
 }
 
-.pipeline.stopped {
+.pipeline.stopped, .pipeline-icon.stopped {
     background-color: red;
 }
 
 .pipeline-stage:hover {
 
+}
+
+.pipeline-icon {
+    float: right;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    border: 1
 }
 
 .pipeline-popup {
@@ -204,18 +212,30 @@ div.ticket:nth-child(odd) {
     z-index: 10;
 }
 
+.pipeline-popup h4 {
+    margin: 0;
+    popup: 0;
+}
+
 .pipeline-stage:hover .pipeline-popup {
     display: block;
     height: auto;
 }
 
-.minimap {
-    width: 100px;
-    height: 100px;
+.minimap_holder {
     float: right;
     border: 1px solid black;
     background-color: gray;
     color: white;
     margin: 5px;
     text-align: center;
+}
+
+.minimap {
+    width: 150px;
+    height: 150px;
+}
+
+.minimap_holder .desc {
+    padding: 2px;
 }
