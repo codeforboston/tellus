@@ -15,6 +15,24 @@ p {
   box-shadow: -2px 2px 4px gray;
 }
 
+#header {
+    padding: 5px;
+    margin-bottom: 15px;
+    background-color: navy;
+    color: white;
+    position: relative;
+}
+
+#site-title {
+    font-size: larger;
+}
+
+#login {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 #dashboard {
 
 }
@@ -135,7 +153,7 @@ a.tab:hover {
 }
 
 .ticket {
-  padding: 3px;
+  padding: 10px;
 }
 
 div.ticket:nth-child(odd) {
@@ -159,7 +177,7 @@ div.ticket:nth-child(odd) {
 }
 
 .pipeline-sm {
-
+    position: relative;
 }
 
 .pipeline-stage {
@@ -187,6 +205,17 @@ div.ticket:nth-child(odd) {
 
 .pipeline-stage:hover {
 
+}
+
+.pipeline-desc {
+    margin-left: 25px;
+    font-size: smaller;
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    border: 1px solid black;
+    padding: 2px;
+    background-color: white;
 }
 
 .pipeline-icon {

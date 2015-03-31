@@ -1,0 +1,1 @@
+// Stub for email sending

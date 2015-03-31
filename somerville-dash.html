@@ -1,11 +1,15 @@
 <head>
   <title>City Dash</title>
-
-  <link rel="stylesheet" href="css/styles.css" media="screen" title="default" charset="utf-8">
 </head>
 
 <body>
   <div id="frame">
+    <div id="header">
+      <div id="site-title">Somerville City Dash</div>
+
+      {{ >user_bar }}
+    </div>
+
     <div id="options">
 
     </div>
@@ -16,6 +20,20 @@
     </div>
   </div>
 </body>
+
+<template name="user_bar">
+<div id="login">
+  {{ #if user }}
+  {{ #with user }}
+  Logged in as <span class="username">{{ username }}</span>
+  {{ /with }}
+
+  {{ else }}
+  You are not logged in.
+  {{ /if }}
+</div>
+</template>
+
 
 <template name="feed">
   <div class="feed-box {{ #if isCollapsed }}collapsed{{ /if }}">
@@ -104,6 +122,13 @@
       </div>
     </div>
     {{ /each }}
+
+    <div class="pipeline-desc">
+      <strong>Latest:</strong>
+      {{ #with latest_update }}
+      {{ name }}
+      {{ /with }}
+    </div>
   </div>
 </template>
 

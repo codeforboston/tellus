@@ -263,6 +263,10 @@ if (Meteor.isClient) {
     Template.pipeline_sm.helpers({
         status_name: function() {
             return StatusNames[this.status_code];
+        },
+
+        latest_update: function() {
+            return this.updates[this.updates.length-1];
         }
     });
 
@@ -272,7 +276,9 @@ if (Meteor.isClient) {
         if (!mapElt) return;
 
         var map = L.map(mapElt, {center: CityCenter,
-                                 zoom: 17}),
+                                 zoom: 17,
+                                 zoomControl: false,
+                                 attributionControl: false}),
             data = this.data,
             location = this.data.location;
 
@@ -282,11 +288,21 @@ if (Meteor.isClient) {
                      }).addTo(map);
 
         var updateWithLocation = (function(loc) {
-            map.setView(loc, {animate: true});
-            var marker = L.circleMarker(loc, {radius:4,
-                                              stroke: "red",
-                                              fillColor: "rgba(255, 0, 0, 0.5)"});
-            map.addLayer(marker);
+            return;
+
+            var bounds = L.latLngBounds(L.latLng(SearchBox[0], SearchBox[1]),
+                                        L.latLng(SearchBox[2], SearchBox[3]));
+
+            if (loc && bounds.contains(loc)) {
+                map.setView(loc, {animate: true});
+                var marker = L.circleMarker(loc, {radius:4,
+                                                  stroke: "red",
+                                                  fillColor: "rgba(255, 0, 0, 0.5)"});
+                map.addLayer(marker);
+            } else {
+                // Display an error
+
+            }
         });
 
         if (location && location.lat && location.lng) {
@@ -307,7 +323,7 @@ if (Meteor.isClient) {
                         var loc = {lat: parseFloat(place.lat),
                                    lng: parseFloat(place.lon)};
                         data.location = loc;
-                        //updateWithLocation(loc);
+                        updateWithLocation(loc);
                     }
                 }
             });
