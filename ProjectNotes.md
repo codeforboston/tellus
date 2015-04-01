@@ -36,3 +36,8 @@
 - I imagine a segmented
 - Ideally, we would scale the pipeline
 - We should still have a progress indicator, though!
+
+### Idea Box
+- Attaching Photos to dashboard (maybe later)
+- IOS/Android
+ 
