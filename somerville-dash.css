@@ -18,7 +18,7 @@ p {
 #header {
     padding: 5px;
     margin-bottom: 15px;
-    background-color: navy;
+    background-color: #00BA3D;
     color: white;
     position: relative;
 }
@@ -53,7 +53,7 @@ a {
 }
 
 .title {
-  background-color: navy;
+  background-color: #00BA3D;
   padding: 5px;
   color: white;
   font-weight: bold;
@@ -268,3 +268,20 @@ div.ticket:nth-child(odd) {
 .minimap_holder .desc {
     padding: 2px;
 }
+
+.styled-button-4 {
+  -webkit-box-shadow:rgba(0,0,0,0.98) 0 1px 0 0;
+  -moz-box-shadow:rgba(0,0,0,0.98) 0 1px 0 0;
+  box-shadow:rgba(0,0,0,0.98) 0 1px 0 0;
+  background-color:#EEE;
+  border-radius:0;
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  border:1px solid #999;
+  color:#666;
+  font-family:'Lucida Grande',Tahoma,Verdana,Arial,Sans-serif;
+  font-size:11px;
+  font-weight:700;
+  padding:2px 6px;
+  height:28px
+  }
