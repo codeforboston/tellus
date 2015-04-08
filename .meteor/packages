@@ -10,3 +10,5 @@ insecure
 reactive-dict
 momentjs:moment
 mrt:leaflet
+accounts-ui
+accounts-password
