@@ -41,3 +41,13 @@
 - Attaching Photos to dashboard (maybe later)
 - IOS/Android
  
+### Agencies that would use a ticketing system
+- The 311 
+- DPW
+- elections
+- Animal Control 
+- Parks and Recs
+- Bike reg
+- Planning and reports/decision 
+
+
